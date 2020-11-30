@@ -150,7 +150,7 @@
       <workItem from="1606114108490" duration="2340000" />
       <workItem from="1606402785648" duration="40000" />
       <workItem from="1606659853652" duration="4491000" />
-      <workItem from="1606666472323" duration="8898000" />
+      <workItem from="1606666472323" duration="22962000" />
     </task>
     <servers />
   </component>
@@ -169,9 +169,13 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="463" y="365" key="NewPhpFileDialog/0.0.1440.900@0.0.1440.900" timestamp="1606708503459" />
-    <state x="295" y="0" width="850" height="1032" key="search.everywhere.popup" timestamp="1606709011505">
+    <state x="336" y="136" width="767" height="628" key="find.popup" timestamp="1606733616072">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="295" y="0" width="850" height="1032" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1606709011505" />
+    <state x="336" y="136" width="767" height="628" key="find.popup/0.0.1440.900@0.0.1440.900" timestamp="1606733616072" />
+    <state x="295" y="0" width="850" height="1032" key="search.everywhere.popup" timestamp="1606738365640">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="295" y="0" width="850" height="1032" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1606738365640" />
   </component>
 </project>

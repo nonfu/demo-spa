@@ -2032,6 +2032,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     PostList: _common_List__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  data: function data() {
+    return {
+      'posts': []
+    };
+  },
+  mounted: function mounted() {
+    this.getPostsData();
+  },
+  methods: {
+    getPostsData: function getPostsData() {
+      var _this = this;
+
+      axios.get('/api/posts').then(function (resp) {
+        _this.posts = resp.data.data;
+      })["catch"](function (err) {
+        console.log('数据加载失败');
+      });
+    }
   }
 });
 
@@ -2055,6 +2074,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     PostContent: _common_Content__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  data: function data() {
+    return {
+      'post': null,
+      'loaded': false
+    };
+  },
+  mounted: function mounted() {
+    if (!this.loaded) {
+      this.getPostData(this.$route.params.id);
+    }
+  },
+  methods: {
+    getPostData: function getPostData(postId) {
+      var _this = this;
+
+      axios.get('/api/posts/' + postId).then(function (resp) {
+        _this.post = resp.data.data;
+        _this.loaded = true;
+      }).then(function (err) {
+        console.log(err);
+      });
+    }
   }
 });
 
@@ -2097,67 +2139,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['post']
+});
 
 /***/ }),
 
@@ -2165,6 +2149,32 @@ __webpack_require__.r(__webpack_exports__);
 /*!**********************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/common/List.vue?vue&type=script&lang=js& ***!
   \**********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ListItem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ListItem */ "./resources/js/components/common/ListItem.vue");
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    ListItem: _ListItem__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  props: ['posts']
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/common/ListItem.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/common/ListItem.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2197,61 +2207,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['post']
+});
 
 /***/ }),
 
@@ -38007,7 +37965,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("post-list")
+  return _c("post-list", { attrs: { posts: _vm.posts } })
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -38031,7 +37989,9 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("post-content")
+  return _vm.loaded
+    ? _c("post-content", { attrs: { post: _vm.post } })
+    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -38055,43 +38015,50 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c(
-        "div",
-        {
-          staticClass: "mb-4 md:mb-0 w-full mx-auto relative",
-          staticStyle: { height: "24em" }
-        },
-        [
-          _c("div", {
-            staticClass: "absolute left-0 bottom-0 w-full h-full z-10",
-            staticStyle: {
-              "background-image":
-                "linear-gradient(180deg,transparent,rgba(0,0,0,.7))"
-            }
-          }),
-          _vm._v(" "),
-          _c("img", {
-            staticClass: "absolute left-0 top-0 w-full h-full z-0 object-cover",
-            attrs: { src: "/images/tailwind.png" }
-          }),
-          _vm._v(" "),
-          _c("div", { staticClass: "p-4 absolute bottom-0 left-0 z-20" }, [
+  return _c("div", [
+    _c(
+      "div",
+      {
+        staticClass: "mb-4 md:mb-0 w-full mx-auto relative",
+        staticStyle: { height: "24em" }
+      },
+      [
+        _c("div", {
+          staticClass: "absolute left-0 bottom-0 w-full h-full z-10",
+          staticStyle: {
+            "background-image":
+              "linear-gradient(180deg,transparent,rgba(0,0,0,.7))"
+          }
+        }),
+        _vm._v(" "),
+        _c("img", {
+          staticClass: "absolute left-0 top-0 w-full h-full z-0 object-cover",
+          attrs: { src: _vm.post.image_url }
+        }),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "p-4 absolute bottom-0 left-0 z-20" },
+          [
             _c(
-              "a",
+              "router-link",
               {
                 staticClass:
                   "px-4 py-1 bg-black text-gray-200 inline-flex items-center justify-center mb-2",
-                attrs: { href: "#" }
+                attrs: {
+                  to: {
+                    name: "category",
+                    params: { name: _vm.post.category.name }
+                  }
+                }
               },
-              [_vm._v("Nutrition")]
+              [
+                _vm._v(
+                  "\n                " +
+                    _vm._s(_vm.post.category.name) +
+                    "\n            "
+                )
+              ]
             ),
             _vm._v(" "),
             _c(
@@ -38102,7 +38069,9 @@ var staticRenderFns = [
               },
               [
                 _vm._v(
-                  "\n                Pellentesque a consectetur velit, ac molestie ipsum. Donec sodales, massa et auctor.\n            "
+                  "\n                " +
+                    _vm._s(_vm.post.title) +
+                    "\n            "
                 )
               ]
             ),
@@ -38110,104 +38079,37 @@ var staticRenderFns = [
             _c("div", { staticClass: "flex mt-3" }, [
               _c("img", {
                 staticClass: "h-10 w-10 rounded-full mr-2 object-cover",
-                attrs: { src: "https://randomuser.me/api/portraits/men/97.jpg" }
+                attrs: { src: _vm.post.author.avatar_url }
               }),
               _vm._v(" "),
               _c("div", [
                 _c(
                   "p",
                   { staticClass: "font-semibold text-gray-200 text-sm" },
-                  [_vm._v(" Mike Sullivan ")]
+                  [_vm._v(" " + _vm._s(_vm.post.author.name) + " ")]
                 ),
                 _vm._v(" "),
                 _c(
                   "p",
                   { staticClass: "font-semibold text-gray-400 text-xs" },
-                  [_vm._v(" 14 Aug ")]
+                  [_vm._v(" " + _vm._s(_vm.post.created_at) + " ")]
                 )
               ])
             ])
-          ])
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass:
-            "px-4 lg:px-0 mt-12 text-gray-700 mx-auto text-lg leading-relaxed"
-        },
-        [
-          _c("p", { staticClass: "pb-6" }, [
-            _vm._v(
-              "Advantage old had otherwise sincerity dependent additions. It in adapted natural hastily is\n            justice. Six draw\n            you him full not mean evil. Prepare garrets it expense windows shewing do an. She projection advantages\n            resolution son indulgence. Part sure on no long life am at ever. In songs above he as drawn to. Gay was\n            outlived peculiar rendered led six."
-            )
-          ]),
-          _vm._v(" "),
-          _c("p", { staticClass: "pb-6" }, [
-            _vm._v(
-              "Difficulty on insensible reasonable in. From as went he they. Preference themselves me as\n            thoroughly\n            partiality considered on in estimating. Middletons acceptance discovered projecting so is so or. In or\n            attachment inquietude remarkably comparison at an. Is surrounded prosperous stimulated am me discretion\n            expression. But truth being state can she china widow. Occasional preference fat remarkably now projecting\n            uncommonly dissimilar. Sentiments projection particular companions interested do at my delightful. Listening\n            newspaper in advantage frankness to concluded unwilling."
-            )
-          ]),
-          _vm._v(" "),
-          _c("p", { staticClass: "pb-6" }, [
-            _vm._v(
-              "Adieus except say barton put feebly favour him. Entreaties unpleasant sufficient few pianoforte\n            discovered\n            uncommonly ask. Morning cousins amongst in mr weather do neither. Warmth object matter course active law\n            spring six. Pursuit showing tedious unknown winding see had man add. And park eyes too more him. Simple excuse\n            active had son wholly coming number add. Though all excuse ladies rather regard assure yet. If feelings so\n            prospect no as raptures quitting."
-            )
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "border-l-4 border-gray-500 pl-4 mb-6 italic rounded"
-            },
-            [
-              _vm._v(
-                "\n            Sportsman do offending supported extremity breakfast by listening. Decisively advantages nor\n            expression\n            unpleasing she led met. Estate was tended ten boy nearer seemed. As so seeing latter he should thirty whence.\n            Steepest speaking up attended it as. Made neat an on be gave show snug tore.\n        "
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c("p", { staticClass: "pb-6" }, [
-            _vm._v(
-              "Exquisite cordially mr happiness of neglected distrusts. Boisterous impossible unaffected he me\n            everything.\n            Is fine loud deal an rent open give. Find upon and sent spot song son eyes. Do endeavor he differed carriage\n            is learning my graceful. Feel plan know is he like on pure. See burst found sir met think hopes are marry\n            among. Delightful remarkably new assistance saw literature mrs favourable."
-            )
-          ]),
-          _vm._v(" "),
-          _c(
-            "h2",
-            { staticClass: "text-2xl text-gray-800 font-semibold mb-4 mt-4" },
-            [_vm._v("Uneasy barton seeing remark happen his has")]
-          ),
-          _vm._v(" "),
-          _c("p", { staticClass: "pb-6" }, [
-            _vm._v(
-              "Guest it he tears aware as. Make my no cold of need. He been past in by my hard. Warmly thrown\n            oh he common\n            future. Otherwise concealed favourite frankness on be at dashwoods defective at. Sympathize interested\n            simplicity at do projecting increasing terminated. As edward settle limits at in."
-            )
-          ]),
-          _vm._v(" "),
-          _c("p", { staticClass: "pb-6" }, [
-            _vm._v(
-              "Dashwood contempt on mr unlocked resolved provided of of. Stanhill wondered it it welcomed oh.\n            Hundred no\n            prudent he however smiling at an offence. If earnestly extremity he he propriety something admitting convinced\n            ye. Pleasant in to although as if differed horrible. Mirth his quick its set front enjoy hoped had there. Who\n            connection imprudence middletons too but increasing celebrated principles joy. Herself too improve gay winding\n            ask expense are compact. New all paid few hard pure she."
-            )
-          ]),
-          _vm._v(" "),
-          _c("p", { staticClass: "pb-6" }, [
-            _vm._v(
-              "Breakfast agreeable incommode departure it an. By ignorant at on wondered relation. Enough at\n            tastes really\n            so cousin am of. Extensive therefore supported by extremity of contented. Is pursuit compact demesne invited\n            elderly be. View him she roof tell her case has sigh. Moreover is possible he admitted sociable concerns. By\n            in cold no less been sent hard hill."
-            )
-          ]),
-          _vm._v(" "),
-          _c("p", { staticClass: "pb-6" }, [
-            _vm._v(
-              "Detract yet delight written farther his general. If in so bred at dare rose lose good. Feel and\n            make two real\n            miss use easy. Celebrated delightful an especially increasing instrument am. Indulgence contrasted sufficient\n            to unpleasant in in insensible favourable. Latter remark hunted enough vulgar say man. Sitting hearted on it\n            without me."
-            )
-          ])
-        ]
-      )
-    ])
-  }
-]
+          ],
+          1
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c("div", {
+      staticClass:
+        "px-4 lg:px-0 mt-12 text-gray-700 mx-auto text-lg leading-relaxed",
+      domProps: { innerHTML: _vm._s(_vm.post.content) }
+    })
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -38229,211 +38131,105 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("div", { staticClass: "border w-full lg:flex mb-5" }, [
-      _c("div", {
+  return _c(
+    "div",
+    _vm._l(_vm.posts, function(post) {
+      return _c("list-item", { key: post.id, attrs: { post: post } })
+    }),
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/common/ListItem.vue?vue&type=template&id=2b32b2cc&":
+/*!******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/common/ListItem.vue?vue&type=template&id=2b32b2cc& ***!
+  \******************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "border w-full lg:flex mb-5" }, [
+    _c("div", {
+      staticClass:
+        "h-48 lg:w-48 flex-none bg-cover text-center overflow-hidden opacity-75",
+      style: "background-image: url(" + _vm.post.image_url + ")",
+      attrs: { title: _vm.post.title }
+    }),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
         staticClass:
-          "h-48 lg:w-48 flex-none bg-cover text-center overflow-hidden opacity-75",
-        staticStyle: { "background-image": "url('/images/tailwind.png')" },
-        attrs: { title: "deit is very important" }
-      }),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass:
-            "bg-white px-4 flex flex-col justify-between leading-normal pt-2 pb-2"
-        },
-        [
+          "bg-white px-4 flex flex-col justify-between leading-normal pt-2 pb-2"
+      },
+      [
+        _c("div", [
+          _c(
+            "div",
+            {
+              staticClass: "mt-3 md:mt-0 text-gray-700 font-bold text-2xl mb-2"
+            },
+            [
+              _c(
+                "router-link",
+                {
+                  attrs: { to: { name: "post", params: { id: _vm.post.id } } }
+                },
+                [
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(_vm.post.title) +
+                      "\n                "
+                  )
+                ]
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("p", { staticClass: "text-gray-700 text-base" }, [
+            _vm._v(
+              "\n                " + _vm._s(_vm.post.summary) + "\n            "
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "flex mt-3" }, [
+          _c("img", {
+            staticClass: "h-10 w-10 rounded-full mr-2 object-cover",
+            attrs: { src: _vm.post.author.avatar_url }
+          }),
+          _vm._v(" "),
           _c("div", [
             _c(
-              "div",
-              {
-                staticClass:
-                  "mt-3 md:mt-0 text-gray-700 font-bold text-2xl mb-2"
-              },
-              [
-                _c(
-                  "router-link",
-                  { attrs: { to: { name: "post", params: { id: 1 } } } },
-                  [
-                    _vm._v(
-                      "\n                        Suspendisse varius justo eu risus laoreet fermentum non aliquam dolor\n                    "
-                    )
-                  ]
-                )
-              ],
-              1
+              "p",
+              { staticClass: "font-semibold text-gray-700 text-sm capitalize" },
+              [_vm._v(" " + _vm._s(_vm.post.author.name) + " ")]
             ),
             _vm._v(" "),
-            _c("p", { staticClass: "text-gray-700 text-base" }, [
-              _vm._v(
-                "\n                    Mauris porttitor, velit at tempus vulputate, odio turpis facilisis dui,\n                    vitae eleifend odio ipsum at odio. Phasellus luctus scelerisque felis eget suscipit.\n                "
-              )
+            _c("p", { staticClass: "text-gray-600 text-xs" }, [
+              _vm._v(" " + _vm._s(_vm.post.created_at) + " ")
             ])
-          ]),
-          _vm._v(" "),
-          _vm._m(0)
-        ]
-      )
-    ]),
-    _vm._v(" "),
-    _vm._m(1),
-    _vm._v(" "),
-    _vm._m(2)
+          ])
+        ])
+      ]
+    )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "flex mt-3" }, [
-      _c("img", {
-        staticClass: "h-10 w-10 rounded-full mr-2 object-cover",
-        attrs: { src: "https://randomuser.me/api/portraits/men/86.jpg" }
-      }),
-      _vm._v(" "),
-      _c("div", [
-        _c(
-          "p",
-          { staticClass: "font-semibold text-gray-700 text-sm capitalize" },
-          [_vm._v(" eduard franz ")]
-        ),
-        _vm._v(" "),
-        _c("p", { staticClass: "text-gray-600 text-xs" }, [_vm._v(" 14 Aug ")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "border w-full lg:flex mb-5" }, [
-      _c("div", {
-        staticClass:
-          "h-48 lg:w-48 flex-none bg-cover text-center overflow-hidden opacity-75",
-        staticStyle: { "background-image": "url('/images/tailwind.png')" },
-        attrs: { title: "deit is very important" }
-      }),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass:
-            "bg-white px-4 flex flex-col justify-between leading-normal pt-2 pb-2"
-        },
-        [
-          _c("div", [
-            _c(
-              "div",
-              {
-                staticClass:
-                  "mt-3 md:mt-0 text-gray-700 font-bold text-2xl mb-2"
-              },
-              [
-                _vm._v(
-                  "\n                    Suspendisse varius justo eu risus laoreet fermentum non aliquam dolor\n                "
-                )
-              ]
-            ),
-            _vm._v(" "),
-            _c("p", { staticClass: "text-gray-700 text-base" }, [
-              _vm._v(
-                "\n                    Mauris porttitor, velit at tempus vulputate, odio turpis facilisis dui,\n                    vitae eleifend odio ipsum at odio. Phasellus luctus scelerisque felis eget suscipit.\n                "
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "flex mt-3" }, [
-            _c("img", {
-              staticClass: "h-10 w-10 rounded-full mr-2 object-cover",
-              attrs: { src: "https://randomuser.me/api/portraits/men/86.jpg" }
-            }),
-            _vm._v(" "),
-            _c("div", [
-              _c(
-                "p",
-                {
-                  staticClass: "font-semibold text-gray-700 text-sm capitalize"
-                },
-                [_vm._v(" eduard franz ")]
-              ),
-              _vm._v(" "),
-              _c("p", { staticClass: "text-gray-600 text-xs" }, [
-                _vm._v(" 14 Aug ")
-              ])
-            ])
-          ])
-        ]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "border w-full lg:flex mb-5" }, [
-      _c("div", {
-        staticClass:
-          "h-48 lg:w-48 flex-none bg-cover text-center overflow-hidden opacity-75",
-        staticStyle: { "background-image": "url('/images/tailwind.png')" },
-        attrs: { title: "deit is very important" }
-      }),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass:
-            "bg-white px-4 flex flex-col justify-between leading-normal pt-2 pb-2"
-        },
-        [
-          _c("div", [
-            _c(
-              "div",
-              {
-                staticClass:
-                  "mt-3 md:mt-0 text-gray-700 font-bold text-2xl mb-2"
-              },
-              [
-                _vm._v(
-                  "\n                    Suspendisse varius justo eu risus laoreet fermentum non aliquam dolor\n                "
-                )
-              ]
-            ),
-            _vm._v(" "),
-            _c("p", { staticClass: "text-gray-700 text-base" }, [
-              _vm._v(
-                "\n                    Mauris porttitor, velit at tempus vulputate, odio turpis facilisis dui,\n                    vitae eleifend odio ipsum at odio. Phasellus luctus scelerisque felis eget suscipit.\n                "
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "flex mt-3" }, [
-            _c("img", {
-              staticClass: "h-10 w-10 rounded-full mr-2 object-cover",
-              attrs: { src: "https://randomuser.me/api/portraits/men/86.jpg" }
-            }),
-            _vm._v(" "),
-            _c("div", [
-              _c(
-                "p",
-                {
-                  staticClass: "font-semibold text-gray-700 text-sm capitalize"
-                },
-                [_vm._v(" eduard franz ")]
-              ),
-              _vm._v(" "),
-              _c("p", { staticClass: "text-gray-600 text-xs" }, [
-                _vm._v(" 14 Aug ")
-              ])
-            ])
-          ])
-        ]
-      )
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -54249,6 +54045,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_List_vue_vue_type_template_id_865bef32___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_List_vue_vue_type_template_id_865bef32___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/common/ListItem.vue":
+/*!*****************************************************!*\
+  !*** ./resources/js/components/common/ListItem.vue ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ListItem_vue_vue_type_template_id_2b32b2cc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ListItem.vue?vue&type=template&id=2b32b2cc& */ "./resources/js/components/common/ListItem.vue?vue&type=template&id=2b32b2cc&");
+/* harmony import */ var _ListItem_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ListItem.vue?vue&type=script&lang=js& */ "./resources/js/components/common/ListItem.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ListItem_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ListItem_vue_vue_type_template_id_2b32b2cc___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ListItem_vue_vue_type_template_id_2b32b2cc___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/common/ListItem.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/common/ListItem.vue?vue&type=script&lang=js&":
+/*!******************************************************************************!*\
+  !*** ./resources/js/components/common/ListItem.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ListItem_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./ListItem.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/common/ListItem.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ListItem_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/common/ListItem.vue?vue&type=template&id=2b32b2cc&":
+/*!************************************************************************************!*\
+  !*** ./resources/js/components/common/ListItem.vue?vue&type=template&id=2b32b2cc& ***!
+  \************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ListItem_vue_vue_type_template_id_2b32b2cc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./ListItem.vue?vue&type=template&id=2b32b2cc& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/common/ListItem.vue?vue&type=template&id=2b32b2cc&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ListItem_vue_vue_type_template_id_2b32b2cc___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ListItem_vue_vue_type_template_id_2b32b2cc___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
