@@ -14,8 +14,11 @@ A demo blog spa app powered by Laravel + Vue + Tailwind.
 ### Screenshot
 
 ![首页](https://qcdn.xueyuanjun.com/storage/uploads/images/gallery/2020-11/16067147150352.jpg)
+
 ![分类列表页](https://qcdn.xueyuanjun.com/storage/uploads/images/gallery/2020-11/16067147392189.jpg)
+
 ![文章详情页](https://qcdn.xueyuanjun.com/storage/uploads/images/gallery/2020-11/16067147636915.jpg)
+
 ![用户反馈页面](https://qcdn.xueyuanjun.com/storage/uploads/images/gallery/2020-11/16067147849079.jpg)
 
 
