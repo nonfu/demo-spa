@@ -4,11 +4,11 @@ A demo blog spa app powered by Laravel + Vue + Tailwind.
 
 ### Usage
 
-1. git clone https://github.com/nonfu/demo-spa.git blog
-2. cd blog
-3. composer install
-4. npm install && npm run dev
-5. php artisan serve
+1. `git clone https://github.com/nonfu/demo-spa.git blog`
+2. `cd blog`
+3. `composer install`
+4. `npm install && npm run dev`
+5. `php artisan serve`
 6. open your browser and visit `http://127.0.0.1:8000` in the address bar
 
 ### Screenshot
