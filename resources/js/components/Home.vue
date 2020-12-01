@@ -8,36 +8,23 @@ import PostList from './common/List';
 import Loading from "./common/Loading";
 export default {
     components: {PostList, Loading},
-    data() {
-        return {
-            posts: [],
-            links: {},
-            loaded: false
-        }
+    created() {
+        this.$store.dispatch('loadPosts');
     },
-    mounted() {
-        if (!this.loaded) {
-            this.getAllPosts();
+    computed: {
+        posts() {
+            return this.$store.getters.getPostsData;
+        },
+        links() {
+            return this.$store.getters.getPostsLink;
+        },
+        loaded() {
+            return this.$store.getters.getPostsLoaded;
         }
     },
     methods: {
-        getAllPosts() {
-            axios.get('/api/posts').then((resp) => {
-                this.posts = resp.data.data;
-                this.links = resp.data.links;
-                this.loaded = true;
-            }).catch((err) => {
-                console.log(err);
-            })
-        },
         getMorePosts(nextPageUrl) {
-            axios.get(nextPageUrl).then((resp) => {
-                this.posts.push(...resp.data.data);
-                this.links = resp.data.links;
-                this.loaded = true;
-            }).catch((err) => {
-                console.log(err);
-            })
+            this.$store.dispatch('loadMorePosts', nextPageUrl);
         }
     }
 }

@@ -11,42 +11,33 @@ export default {
     components: {PostList, Loading},
     data () {
         return {
-            name: '',
-            posts: [],
-            links: {},
-            loaded: false
+            name: ''
         }
     },
-    mounted () {
-        if (!this.loaded) {
-            this.updateCategoryName();
-        }
+    created () {
+        this.updateCategoryName();
     },
     watch: {
         '$route': 'updateCategoryName'
     },
+    computed: {
+        posts() {
+            return this.$store.getters.getPostsData;
+        },
+        links() {
+            return this.$store.getters.getPostsLink;
+        },
+        loaded() {
+            return this.$store.getters.getPostsLoaded;
+        }
+    },
     methods: {
         updateCategoryName ()  {
-            this.name = this.$route.params.name.toUpperCase();
-            this.getCategoryPosts();
-        },
-        getCategoryPosts() {
-            axios.get('/api/posts/category/' + this.name).then((resp) => {
-                this.posts = resp.data.data;
-                this.links = resp.data.links;
-                this.loaded = true;
-            }).catch((err) => {
-                console.log(err);
-            })
+            this.name = this.$route.params.name;
+            this.$store.dispatch('loadPosts', this.name);
         },
         getMorePosts(nextPageUrl) {
-            axios.get(nextPageUrl).then((resp) => {
-                this.posts.push(...resp.data.data);
-                this.links = resp.data.links;
-                this.loaded = true;
-            }).catch((err) => {
-                console.log(err);
-            })
+            this.$store.dispatch('loadMorePosts', nextPageUrl);
         }
     }
 }
