@@ -12,14 +12,14 @@
             </div>
         </div>
         <div class="post-content px-4 lg:px-0 mt-12 text-gray-700 mx-auto text-lg leading-relaxed">
-            <p class="pb-6">
+            <p>
                 Occaecati fugiat asperiores adipisci ullam perferendis blanditiis. Distinctio quia molestiae asperiores et nulla.
             </p>
-            <p class="pb-6">
+            <p>
                 Distinctio dignissimos saepe autem quas aut eum commodi. Tempora dolor voluptas perspiciatis incidunt
                 consequuntur. Voluptates id neque illo minima perferendis consequatur quis.
             </p>
-            <p class="pb-6">
+            <p>
                 Sapiente quo officia consequatur at porro ut facilis. Tempore numquam et cupiditate omnis. Est et
                 suscipit minus atque et rem minima. Aut iusto consequatur est neque nobis magni.
             </p>
