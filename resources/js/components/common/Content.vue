@@ -1,3 +1,9 @@
+<style>
+.post-content p {
+    margin-bottom: 1.5rem;
+}
+</style>
+
 <template>
     <div>
         <div class="mb-4 md:mb-0 w-full mx-auto relative" style="height: 24em;">
@@ -21,7 +27,7 @@
             </div>
         </div>
 
-        <div v-html="post.content" class="px-4 lg:px-0 mt-12 text-gray-700 mx-auto text-lg leading-relaxed">
+        <div v-html="post.content" class="post-content px-4 lg:px-0 mt-12 text-gray-700 mx-auto text-lg leading-relaxed">
         </div>
     </div>
 </template>

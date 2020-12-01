@@ -9,8 +9,8 @@ A demo blog spa app powered by Laravel + Vue + Tailwind.
 3. `composer install`
 4. `npm install && npm run dev`
 5. start mysql and config `.env` for database connection
-6. php artisan migrate
-7. php artisan db:seed --class=BlogSeeder
+6. `php artisan migrate`
+7. `php artisan db:seed --class=BlogSeeder`
 8. `php artisan serve`
 9. open your browser and visit `http://127.0.0.1:8000` in the address bar
 

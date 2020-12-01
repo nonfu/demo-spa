@@ -38,7 +38,7 @@
                     </div>
                 </main>
                 <!-- 底部内容 -->
-                <footer class="border-t mt-16 pt-8 pb-8 text-center lg:px-0">
+                <footer class="border-t pt-8 pb-8 text-center lg:px-0">
                     <span class="text-sm text-gray-500">
                          &copy; Powered By Laravel + Vue + Tailwind
                     </span>

@@ -1,26 +1,43 @@
 <template>
-    <post-list :posts="posts"></post-list>
+    <post-list v-if="loaded" :posts="posts" :links="links" @loadMorePosts="getMorePosts"></post-list>
+    <loading v-else></loading>
 </template>
 
 <script>
 import PostList from './common/List';
+import Loading from "./common/Loading";
 export default {
-    components: {PostList},
-    data () {
+    components: {PostList, Loading},
+    data() {
         return {
-            'posts': []
+            posts: [],
+            links: {},
+            loaded: false
         }
     },
     mounted() {
-        this.getPostsData();
+        if (!this.loaded) {
+            this.getAllPosts();
+        }
     },
     methods: {
-        getPostsData () {
+        getAllPosts() {
             axios.get('/api/posts').then((resp) => {
                 this.posts = resp.data.data;
+                this.links = resp.data.links;
+                this.loaded = true;
             }).catch((err) => {
-                console.log('数据加载失败')
-            });
+                console.log(err);
+            })
+        },
+        getMorePosts(nextPageUrl) {
+            axios.get(nextPageUrl).then((resp) => {
+                this.posts.push(...resp.data.data);
+                this.links = resp.data.links;
+                this.loaded = true;
+            }).catch((err) => {
+                console.log(err);
+            })
         }
     }
 }

@@ -14,6 +14,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="package.json" />
         <option value="Vue Single File Component" />
       </list>
     </option>
@@ -150,7 +151,7 @@
       <workItem from="1606114108490" duration="2340000" />
       <workItem from="1606402785648" duration="40000" />
       <workItem from="1606659853652" duration="4491000" />
-      <workItem from="1606666472323" duration="23140000" />
+      <workItem from="1606666472323" duration="29219000" />
     </task>
     <servers />
   </component>
