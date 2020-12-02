@@ -1,8 +1,8 @@
 <template>
     <div class="bg-white shadow-md rounded mt-2 px-8 pt-6 pb-8 mb-6 flex flex-col">
         <flash-message v-if="publishedStatus" :success="publishedStatus === 1">
-            <template slot="success">文章发布成功！</template>
-            <template slot="error">文章发布失败！</template>
+            <template slot="success">New Post Publish Successfully! </template>
+            <template slot="error">New Post Publish Failed! </template>
         </flash-message>
         <div class="flex flex-wrap -mx-3 mb-6">
             <div class="w-full px-3">

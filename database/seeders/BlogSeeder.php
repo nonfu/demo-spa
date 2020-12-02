@@ -23,8 +23,7 @@ class BlogSeeder extends Seeder
         // 创建一个测试用户
         $user = User::factory([
             'name' => '测试账号',
-            'email' => 'test@xueyuanjuan.com',
-            'password' => 'password'
+            'email' => 'test@xueyuanjun.com'
         ])->create();
 
         // 创建三个测试分类

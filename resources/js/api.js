@@ -37,5 +37,17 @@ export default {
                 'Content-Type': 'multipart/form-data'
             }
         });
+    },
+
+    setCsrfCookie() {
+        return axios.get('/sanctum/csrf-cookie');
+    },
+
+    login(formData) {
+        return axios.post('/login', formData);
+    },
+
+    logout() {
+        return axios.post('/logout');
     }
 }

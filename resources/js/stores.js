@@ -12,7 +12,8 @@ export default new Vuex.Store({
         postsLink: {},
         postsLoaded: false,
         postStoredStatus: 0,
-        postsCategories: []
+        postsCategories: [],
+        userAuthenticated: false
     },
     getters: {
         getPostData (state) {
@@ -35,6 +36,9 @@ export default new Vuex.Store({
         },
         getPostsCategories(state) {
             return state.postsCategories;
+        },
+        getUserAuthenticated(state) {
+            return state.userAuthenticated;
         }
     },
     mutations: {
@@ -58,6 +62,9 @@ export default new Vuex.Store({
         },
         setPostsCategories(state, categories) {
             state.postsCategories = categories;
+        },
+        setUserAuthenticated(state, authenticated) {
+            state.userAuthenticated = authenticated;
         }
     },
     actions: {
@@ -112,6 +119,37 @@ export default new Vuex.Store({
                 }
             }).catch((err) => {
                console.log(err);
+            });
+        },
+        loadLoginPage() {
+            PostAPI.setCsrfCookie().then(resp => {
+                // 成功添加 CSRF TOKEN 到 Cookie
+            }).catch((err) => {
+                console.log(err)
+            });
+        },
+        userLogin(context, formData) {
+            return new Promise((resolve, reject) => {
+                PostAPI.login(formData).then(resp => {
+                    if (resp.data.success === true) {
+                        // 登录成功
+                        context.commit('setUserAuthenticated', true);
+                        resolve(resp);
+                    }
+                    reject(resp);
+                }).catch(err => {
+                    reject(err);
+                })
+            });
+        },
+        userLogout(context) {
+            return new Promise((resolve, reject) => {
+                PostAPI.logout().then(resp => {
+                    context.commit('setUserAuthenticated', false);
+                    resolve(resp);
+                }).catch(err => {
+                    reject(err);
+                });
             });
         }
     }
