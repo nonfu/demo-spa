@@ -17,6 +17,14 @@ export default {
             component: require('./components/Feedback').default
         },
         {
+            path: '/login',
+            component: require('./components/Login').default
+        },
+        {
+            path: '/new',
+            component: require('./components/NewPost').default
+        },
+        {
             path: '/post/:id',
             name: 'post',
             component: require('./components/Post').default

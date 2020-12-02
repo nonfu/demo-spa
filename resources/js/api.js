@@ -23,5 +23,19 @@ export default {
     // 请求分页数据 API
     getMorePosts (url) {
         return axios.get(url);
+    },
+
+    // 获取分类列表 API
+    getPostsCategories() {
+        return axios.get(base + '/categories');
+    },
+
+    // 文章发布 API
+    createNewPost(formData) {
+        return axios.post(base + '/store', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
     }
 }

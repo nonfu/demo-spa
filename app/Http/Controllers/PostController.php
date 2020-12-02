@@ -1,11 +1,13 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Post;
 use App\Http\Resources\Post as PostResource;
 use App\Http\Resources\Posts as PostCollection;
+use App\Http\Resources\Categories as CategoryCollection;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class PostController extends Controller
 {
@@ -39,5 +41,45 @@ class PostController extends Controller
         return new PostResource(
             $post->load(['author:id,name,email', 'category'])
         );
+    }
+
+    // 获取分类列表
+    public function categories()
+    {
+        return new CategoryCollection(
+            Category::all()
+        );
+    }
+
+    // 文章发布
+    public function store(Request $request)
+    {
+        $data = $request->validate([
+            'title' => 'required|string|max:100',
+            'category_id' => [
+                'required',
+                Rule::in(Category::query()->pluck('id')->toArray())
+            ],
+            'image' => 'required|image|max:1024',
+            'content' => 'required|string',
+            'summary' => 'required|string|max:200',
+        ]);
+
+        $post = new Post($data);
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $local_path = $image->storePublicly('images', ['disk' => 'public']);
+            $post->image_url = '/storage/' . $local_path;
+        }
+
+        try {
+            $post->user_id = 1;  // 默认为测试用户发布文章
+            $post->save();
+        } catch (\Exception $exception) {
+            return response()->json(['success' => false, 'message' => '文章发布失败']);
+        }
+
+        return response()->json(['success' => true, 'data' => $post->id, 'message' => '文章发布成功']);
     }
 }

@@ -10,7 +10,9 @@ export default new Vuex.Store({
         postLoaded: false,
         postsData: [],
         postsLink: {},
-        postsLoaded: false
+        postsLoaded: false,
+        postStoredStatus: 0,
+        postsCategories: []
     },
     getters: {
         getPostData (state) {
@@ -27,6 +29,12 @@ export default new Vuex.Store({
         },
         getPostsLoaded(state) {
             return state.postsLoaded;
+        },
+        getPostStoredStatus(state) {
+            return state.postStoredStatus;
+        },
+        getPostsCategories(state) {
+            return state.postsCategories;
         }
     },
     mutations: {
@@ -44,6 +52,12 @@ export default new Vuex.Store({
         },
         setPostsLoaded(state, loaded) {
             state.postsLoaded = loaded;
+        },
+        setPostStoredStatus(state, status) {
+            state.postStoredStatus = status;
+        },
+        setPostsCategories(state, categories) {
+            state.postsCategories = categories;
         }
     },
     actions: {
@@ -79,6 +93,25 @@ export default new Vuex.Store({
                 context.commit('setPostsLoaded', true);
             }).catch((err) => {
                 console.log(err);
+            });
+        },
+        loadPostsCategories(context) {
+            PostAPI.getPostsCategories().then((resp) => {
+                context.commit('setPostsCategories', resp.data.data);
+            }).catch((err) => {
+                console.log(err);
+            });
+        },
+        publishNewPost(context, formData) {
+            PostAPI.createNewPost(formData).then((resp) => {
+                if (resp.data.success === true) {
+                    context.commit('setPostStoredStatus', 1);  // 存储成功
+                    dispatch('loadPosts');
+                } else {
+                    context.commit('setPostStoredStatus', 2);  // 存储失败
+                }
+            }).catch((err) => {
+               console.log(err);
             });
         }
     }
