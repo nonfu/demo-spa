@@ -1,5 +1,3 @@
-import store from './stores';
-
 export default {
     mode: 'history',
 
@@ -25,13 +23,21 @@ export default {
                 },
                 {
                     path: '/login',
-                    component: require('./components/Login').default
+                    component: require('./components/Login').default,
+                    beforeEnter: (to, from, next) => {
+                        if (localStorage.getItem('authenticated')) {
+                            // 已认证跳转到首页
+                            next('/');
+                        } else {
+                            next();
+                        }
+                    }
                 },
                 {
                     path: '/new',
                     component: require('./components/NewPost').default,
                     beforeEnter: (to, from, next) => {
-                        if (store.getters.getUserAuthenticated) {
+                        if (localStorage.getItem('authenticated')) {
                             // 已认证可以访问该路由
                             next();
                         } else {

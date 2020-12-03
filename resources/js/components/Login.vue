@@ -1,7 +1,3 @@
-<style scoped>
-
-</style>
-
 <template>
     <div class="bg-white shadow-md rounded mt-6 px-8 pt-6 pb-8 mb-6 flex flex-col">
         <flash-message v-if="submitted" :success="authenticated">
@@ -53,7 +49,10 @@ export default {
             formData.append('email', this.email);
             formData.append('password', this.password);
             this.$store.dispatch('userLogin', formData).then(resp => {
-                this.$router.push('/');  // 登录成功后跳转到首页
+                // 存储登录状态到 localStorage 以便直接通过 URL 访问可以识别登录状态
+                localStorage.setItem('authenticated', '1');
+                // 登录成功后跳转到首页
+                this.$router.push('/');
             }).catch(err => {
                 console.log(err)
             });

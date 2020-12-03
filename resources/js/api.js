@@ -54,6 +54,7 @@ export default {
         return axios.post('/logout');
     },
 
+    // 获取认证用户信息 API
     getUserInfo() {
         return axios.get('/api/user');
     }

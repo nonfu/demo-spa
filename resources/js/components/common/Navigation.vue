@@ -27,7 +27,8 @@ export default {
     methods: {
         logout() {
             this.$store.dispatch('userLogout').then(resp => {
-                window.location = '/';
+                localStorage.removeItem('authenticated');
+                this.$router.push('/');
             }).catch(err => {
                console.log(err);
             });
