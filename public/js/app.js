@@ -40145,6 +40145,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         // 响应状态码为 200 表明用户认证成功，可以通过 resp.data 获取用户信息
         context.commit('setUserAuthenticated', true);
       })["catch"](function (err) {
+        localStorage.removeItem('authenticated');
         console.log(err);
       });
     }

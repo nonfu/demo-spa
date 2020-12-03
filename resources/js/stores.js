@@ -157,7 +157,8 @@ export default new Vuex.Store({
                 // 响应状态码为 200 表明用户认证成功，可以通过 resp.data 获取用户信息
                 context.commit('setUserAuthenticated', true);
             }).catch(err => {
-               console.log(err);
+                localStorage.removeItem('authenticated')
+                console.log(err);
             });
         }
     }
