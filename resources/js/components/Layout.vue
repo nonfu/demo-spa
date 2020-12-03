@@ -19,6 +19,9 @@ import Navigation from './common/Navigation';
 import Bottom from './common/Bottom';
 export default {
     components: {Navigation, Bottom},
+    created() {
+        this.$store.dispatch('loadUserAuthenticated');
+    },
     computed: {
         authenticated() {
             return this.$store.getters.getUserAuthenticated;

@@ -2132,6 +2132,9 @@ __webpack_require__.r(__webpack_exports__);
     Navigation: _common_Navigation__WEBPACK_IMPORTED_MODULE_0__["default"],
     Bottom: _common_Bottom__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
+  created: function created() {
+    this.$store.dispatch('loadUserAuthenticated');
+  },
   computed: {
     authenticated: function authenticated() {
       return this.$store.getters.getUserAuthenticated;
@@ -38739,14 +38742,20 @@ var base = '/api/posts';
       }
     });
   },
+  // 将 CSRF TOKEN 设置到 Cookie API
   setCsrfCookie: function setCsrfCookie() {
     return axios.get('/sanctum/csrf-cookie');
   },
+  // 登录 API
   login: function login(formData) {
     return axios.post('/login', formData);
   },
+  // 退出登录 API
   logout: function logout() {
     return axios.post('/logout');
+  },
+  getUserInfo: function getUserInfo() {
+    return axios.get('/api/user');
   }
 });
 
@@ -40120,6 +40129,14 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         })["catch"](function (err) {
           reject(err);
         });
+      });
+    },
+    loadUserAuthenticated: function loadUserAuthenticated(context) {
+      _api__WEBPACK_IMPORTED_MODULE_2__["default"].getUserInfo().then(function (resp) {
+        // 响应状态码为 200 表明用户认证成功，可以通过 resp.data 获取用户信息
+        context.commit('setUserAuthenticated', true);
+      })["catch"](function (err) {
+        console.log(err);
       });
     }
   }

@@ -7,6 +7,7 @@ use App\Http\Resources\Post as PostResource;
 use App\Http\Resources\Posts as PostCollection;
 use App\Http\Resources\Categories as CategoryCollection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 class PostController extends Controller
@@ -74,7 +75,7 @@ class PostController extends Controller
         }
 
         try {
-            $post->user_id = 1;  // 默认为测试用户发布文章
+            $post->user_id = Auth::user()->id;
             $post->save();
         } catch (\Exception $exception) {
             return response()->json(['success' => false, 'message' => '文章发布失败']);

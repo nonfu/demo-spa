@@ -39,15 +39,22 @@ export default {
         });
     },
 
+    // 将 CSRF TOKEN 设置到 Cookie API
     setCsrfCookie() {
         return axios.get('/sanctum/csrf-cookie');
     },
 
+    // 登录 API
     login(formData) {
         return axios.post('/login', formData);
     },
 
+    // 退出登录 API
     logout() {
         return axios.post('/logout');
+    },
+
+    getUserInfo() {
+        return axios.get('/api/user');
     }
 }
